@@ -1,3 +1,5 @@
+######## Getting Started 
+
 myFunction<-function(doorthing, doorthing2, x){
   doorthing1<-doorthing2<-sample(1:3, 1)
   if (doorthing1==doorthing2){ x<-TRUE } else { x==FALSE }
@@ -22,3 +24,57 @@ montyHall <- function(ChoiceOfDoor, LocationOfCar){  #input which door you choos
 }
 
 montyHall(3,3)
+
+
+
+##### Question 1
+
+setClass(Class="door",
+         representation = representation(
+           chosenDoor = "numeric",
+           carDoor = "numeric",
+           switch = "logical"
+         ),
+         prototype = prototype(
+           chosenDoor = c(),
+           carDoor = c(),
+           switch = c()
+         )
+)
+
+new("door")
+
+
+setValidity("door", function(object){ #ensures door is one number between 1-3
+  ChosenTest = (object@chosenDoor ==1 | object@chosenDoor ==2 | object@chosenDoor == 3)
+  ChosenLength = (length(object@chosenDoor) == 1)
+  
+  CarTest = (object@carDoor ==1 | object@carDoor ==2 | object@carDoor == 3)
+  CarLength = (length(object@carDoor) == 1)
+  
+  switchTest = (object@switch == TRUE | object@switch == FALSE)
+  switchLength = (length(object@switch == 1))
+  
+  
+  if(!ChosenTest | !ChosenLength){
+    return("@chosenDoor not valid")
+  }
+  if(!CarTest | !CarLength){
+    return("@carDoor not valid")
+  }
+  if(!switchTest | !switchLength){
+    return("@switch not valid")
+  }
+}
+)
+
+setMethod("initialize", "door", function(.Object, ...) { #initializes 
+  value = callNextMethod()
+  validObject(value)
+  return(value)
+})
+
+new("door", 1,3, FALSE)
+
+
+
