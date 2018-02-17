@@ -97,12 +97,24 @@ setMethod("PlayGame", "door",
             RandomCarDoor = as.numeric(sample(1:3,1))
             DoorChosenFirst = as.numeric(sample(1:3,1))
             x = new("door", chosenDoor = DoorChosenFirst, carDoor = RandomCarDoor, switch = FALSE)
+            y =  new("door", chosenDoor = newDoor, carDoor = RandomCarDoor, switch = TRUE)
+          
+            if(object@switch == FALSE){
+            return(x)
+          }
+          else{
+            newDoor = c(1,2,3)
+            newDoor = which(newDoor != RandomCarDoor)
+            newDoor = which(newDoor != DoorChosenFirst)
+            newDoor = as.numeric(newDoor)
             
-          return(x)
-            
-          } )
+         
+            return(y)
+          }  
+       
+} )
 
-blankDoor <- new("door", chosenDoor = 3, carDoor = 2, switch = FALSE)
+blankDoor <- new("door", chosenDoor = 3, carDoor = 2, switch = TRUE)
 
 
 PlayGame(blankDoor)
