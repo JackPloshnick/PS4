@@ -54,6 +54,7 @@ setValidity("door", function(object){ #ensures door is one number between 1-3
   switchTest = (is.logical(object@switch == TRUE))
   switchLength = (length(object@switch == 1))
   
+  winnerTest = (object@chosenDoor == object@carDoor)
   
   if(!ChosenTest | !ChosenLength){
     return("@chosenDoor not valid")
@@ -63,6 +64,9 @@ setValidity("door", function(object){ #ensures door is one number between 1-3
   }
   if(!switchTest | !switchLength){
     return("@switch not valid")
+  }
+  if( winnerTest){
+    return(winner = TRUE)
   }
 }
 )
@@ -76,8 +80,29 @@ setMethod("initialize", "door", function(.Object, ...) {
 
 
 
-new("door", chosenDoor = 1, carDoor = 3, switch = TRUE)
+test <- new("door", chosenDoor = 2, carDoor = 2, switch = FALSE)
+
+##What to do about winner??
+
+###### Question 2
 
 
+setGeneric("PlayGame", #sets generic function in S4
+           function(object="door") {
+             standardGeneric("PlayGame")
+           } )
+
+setMethod("PlayGame", "door", 
+          function(object){
+            RandomCarDoor = as.numeric(sample(1:3,1))
+            DoorChosenFirst = as.numeric(sample(1:3,1))
+            x = new("door", chosenDoor = DoorChosenFirst, carDoor = RandomCarDoor, switch = FALSE)
+            
+          return(x)
+            
+          } )
+
+blankDoor <- new("door", chosenDoor = 3, carDoor = 2, switch = FALSE)
 
 
+PlayGame(blankDoor)
