@@ -42,7 +42,6 @@ setClass(Class="door",
          )
 )
 
-new("door")
 
 
 setValidity("door", function(object){ #ensures door is one number between 1-3
@@ -52,7 +51,7 @@ setValidity("door", function(object){ #ensures door is one number between 1-3
   CarTest = (object@carDoor ==1 | object@carDoor ==2 | object@carDoor == 3)
   CarLength = (length(object@carDoor) == 1)
   
-  switchTest = (object@switch == TRUE | object@switch == FALSE)
+  switchTest = (is.logical(object@switch == TRUE))
   switchLength = (length(object@switch == 1))
   
   
@@ -68,13 +67,17 @@ setValidity("door", function(object){ #ensures door is one number between 1-3
 }
 )
 
-setMethod("initialize", "door", function(.Object, ...) { #initializes 
+
+setMethod("initialize", "door", function(.Object, ...) {
   value = callNextMethod()
   validObject(value)
   return(value)
 })
 
-new("door", 1,3, FALSE)
+
+
+new("door", chosenDoor = 1, carDoor = 3, switch = TRUE)
+
 
 
 
