@@ -101,10 +101,13 @@ setMethod("PlayGame", "door",
             notCar = newDoor[!newDoor %in% RandomCarDoor] #Gets rid of car door
             neither = notCar[!notCar %in% DoorChosenFirst] #Gets rid of chosen door
            
-            openedDoor = sample(c(neither),1)
-            openedDoor = as.numeric(openedDoor)
+            if(length(neither)== 2){
+            openedDoor = as.numeric(sample(c(neither),1))}
+             
+            if(length(neither)==1){
+              openedDoor = as.numeric(neither)
+            }
             
-          
           pickedDoor= as.numeric(newDoor[-c(openedDoor, DoorChosenFirst)])
        
             
@@ -114,7 +117,7 @@ setMethod("PlayGame", "door",
             object@chosenDoor <- DoorChosenFirst
             
           }
-          else{
+          if(object@switch == TRUE){
             object@carDoor <- RandomCarDoor
             object@chosenDoor <- pickedDoor
             
@@ -123,7 +126,8 @@ setMethod("PlayGame", "door",
        return(winner)
 } )
 
-blankDoor <- new("door", chosenDoor = 3, carDoor = 2, switch = TRUE)
+blankDoor <- new("door", chosenDoor = 1, carDoor = 2, switch = TRUE)
+
 
 
 
@@ -131,8 +135,16 @@ PlayGame(blankDoor)
 
 #####Simulation 
 
+?data.frame
 
+setMethod("as.data.frame", "door",
+          function(x){
+            x = c(x@chosenDoor, x@carDoor, as.logical( x@switch))
+            
+            as.data.frame(x)
+          })
 
+as.data.frame(blankDoor)
 
 
 
