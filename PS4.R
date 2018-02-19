@@ -102,7 +102,8 @@ setMethod("PlayGame", "door",
             neither = notCar[!notCar %in% DoorChosenFirst] #Gets rid of chosen door
            
             if(length(neither)== 2){
-            openedDoor = as.numeric(sample(c(neither),1))}
+              openedDoor = as.numeric(sample(c(neither),1))
+            }
              
             if(length(neither)==1){
               openedDoor = as.numeric(neither)
@@ -135,16 +136,23 @@ PlayGame(blankDoor)
 
 #####Simulation 
 
-?data.frame
+Switch <- new("door", chosenDoor = 1, carDoor = 1, switch = TRUE)
 
-setMethod("as.data.frame", "door",
-          function(x){
-            x = c(x@chosenDoor, x@carDoor, as.logical( x@switch))
-            
-            as.data.frame(x)
-          })
+ListofSwitch <- rep( c(Switch, Switch), times = 500)
 
-as.data.frame(blankDoor)
+SwitchApplied<- sapply(ListofSwitch, PlayGame)
+
+table(SwitchApplied)
+
+###
+
+NoSwitch <- new("door", chosenDoor = 1, carDoor = 1, switch = FALSE)
+
+ListofNoSwitch <- rep( c(NoSwitch, NoSwitch), times = 500)
+
+NoSwitchApplied <- sapply(ListofNoSwitch, PlayGame)
+
+table(NoSwitchApplied)
 
 
 
