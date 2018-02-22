@@ -139,11 +139,11 @@ PlayGame(blankDoor)
 
 Switch <- new("door", chosenDoor = 1, carDoor = 1, switch = TRUE)# input door has value of switch=TRUE. values of chosendoor and cardoor are overwritten by function 
 
-ListofSwitch <- rep( c(Switch, Switch), times = 500)
+ListofSwitch <- rep( c(Switch, Switch), times = 500)#creates list of 1000 objects of class door
 
-SwitchApplied<- sapply(ListofSwitch, PlayGame)
+SwitchApplied<- sapply(ListofSwitch, PlayGame)#applies PlayGame to each door
 
-table(SwitchApplied)
+table(SwitchApplied)#table of results 
 
 ###
 
