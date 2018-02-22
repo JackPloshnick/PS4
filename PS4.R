@@ -156,5 +156,8 @@ NoSwitchApplied <- sapply(ListofNoSwitch, PlayGame)
 table(NoSwitchApplied)
 
 
+#Switching is the best strategy. You will win the game about 2/3 of the time. If you do not switch, you win about 1/3 of the time
+
+
 
 
